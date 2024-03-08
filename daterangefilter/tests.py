@@ -10,7 +10,7 @@ from django.db import models
 from django.contrib.admin import ModelAdmin, site
 from django.contrib.admin.views.main import ChangeList
 from django.contrib.auth.models import User
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 
 from .filters import DateRangeFilter, PastDateRangeFilter, FutureDateRangeFilter
 
@@ -95,7 +95,7 @@ class DateRangeFilterTestCase(TestCase):
 
         self.assertEqual(list(queryset), [self.object_two, self.object_one])
         filterspec = changelist.get_filters(request)[0][0]
-        self.assertEqual(force_text(filterspec.title), 'created at')
+        self.assertEqual(force_str(filterspec.title), 'created at')
 
 
     def test_datefilter_filtered(self):
@@ -112,7 +112,7 @@ class DateRangeFilterTestCase(TestCase):
 
         self.assertEqual(list(queryset), [self.object_one])
         filterspec = changelist.get_filters(request)[0][0]
-        self.assertEqual(force_text(filterspec.title), 'created at')
+        self.assertEqual(force_str(filterspec.title), 'created at')
 
         choice = select_by(filterspec.choices(changelist))
         self.assertEqual(choice['query_string'], '?')
@@ -133,7 +133,7 @@ class DateRangeFilterTestCase(TestCase):
 
         self.assertEqual(list(queryset), [self.object_two, self.object_one])
         filterspec = changelist.get_filters(request)[0][0]
-        self.assertEqual(force_text(filterspec.title), 'created at')
+        self.assertEqual(force_str(filterspec.title), 'created at')
 
         choice = select_by(filterspec.choices(changelist))
         self.assertEqual(choice['query_string'], '?')
